@@ -8,7 +8,6 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('todos');
-  this.route('test');
 });
 
 export default Router;

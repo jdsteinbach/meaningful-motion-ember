@@ -1,0 +1,23 @@
+<NewTodo @addTodo={{action "addTodo"}} />
+
+<AnimatedContainer class="todo-lists">
+  <ul class="todo-items">
+    {{#animated-each outstandingItems use=slideItems as |todo|}}
+      <TodoItem
+        @todo={{todo}}
+        @updateItem={{action "toggleCompleted"}}
+      />
+    {{/animated-each}}
+  </ul>
+
+  <ul class="todo-items todo-items--completed">
+    {{#animated-each completedItems use=slideItems as |todo|}}
+      <TodoItem
+        @todo={{todo}}
+        @updateItem={{action "toggleCompleted"}}
+      />
+    {{/animated-each}}
+  </ul>
+</AnimatedContainer>
+
+<TrashTodo />

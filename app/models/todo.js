@@ -1,8 +1,11 @@
-import DS from 'ember-data';
+import EmberObject, { computed }from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 
-const { attr, Model } = DS;
-
-export default Model.extend({
-  title: attr('string'),
-  completed: attr('boolean')
+export default EmberObject.extend({
+  title: '',
+  completed: false,
+  dueDate: '',
+  uid: computed('title', function() {
+    return guidFor(this);
+  })
 });

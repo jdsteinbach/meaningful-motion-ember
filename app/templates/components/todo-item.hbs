@@ -1,2 +1,5 @@
-<h2>{{text}}</h2>
-<button type="button">Complete Task</button>
+<div class="todo-item__wrapper">
+  <button class="todo-item__completed" type="button" onclick={{action "updateTodo"}}>Complete Task</button>
+  <p class="todo-item__title">{{todo.title}}</p>
+  <p class="todo-item__due-date">{{moment-format todo.dueDate "MMM D, YYYY"}}</p>
+</div>

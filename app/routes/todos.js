@@ -1,21 +1,22 @@
 import Route from '@ember/routing/route';
-import EmberObject from '@ember/object';
 import { A } from '@ember/array';
 
-let ToDo = EmberObject.extend({
-  title: '',
-  completed: false
-})
+import moment from 'moment';
+
+import Todo from '../models/todo';
 
 export default Route.extend({
   model() {
-    return A([
-      ToDo.create({
-        title: 'Walk the dog'
-      }),
-      ToDo.create({
-        title: 'Finish EmberCamp slides'
-      })
-    ]);
+    let dog = Todo.create({
+      title: 'Walk the dog',
+      dueDate: moment('2019-8-4').utc()
+    });
+
+    let slides = Todo.create({
+      title: 'Finish EmberCamp slides',
+      dueDate: moment('2019-8-14').utc()
+    });
+
+    return A([dog, slides]);
   }
 });
