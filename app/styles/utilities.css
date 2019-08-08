@@ -1,0 +1,8 @@
+.screen-reader-only {
+  width: 0;
+  height: 0;
+  clip: rect(0,0,0,0);
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+}

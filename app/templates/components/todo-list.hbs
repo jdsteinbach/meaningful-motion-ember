@@ -1,0 +1,8 @@
+{{#animated-each items use=animation as |todo|}}
+  <TodoItem
+    @todo={{todo}}
+    @updateItem={{updateItem}}
+    @editItem={{editItem}}
+    @deleteItem={{deleteItem}}
+  />
+{{/animated-each}}

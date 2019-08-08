@@ -10,7 +10,43 @@ import moment from 'moment';
 import Todo from '../models/todo';
 
 export default Controller.extend({
-  classNames: ['app-wrapper'],
+  outstandingItems: computed('model.@each.completed', function() {
+    return this.model.filterBy('completed', false).sortBy('dueDate');
+  }),
+
+  completedItems: computed('model.@each.completed', function() {
+    return this.model.filterBy('completed', true).sortBy('dueDate');
+  }),
+
+  actions: {
+    addTodo(todo) {
+      let newTodo = Todo.create({
+        title: todo.title,
+        dueDate: moment(todo.dueDate).utc().format()
+      });
+
+      this.model.pushObject(newTodo);
+      return this.model.sortBy('dueDate');
+    },
+
+    toggleCompleted(todo) {
+      let toggledTodo = this.model.findBy('uid', todo.uid);
+
+      set(toggledTodo, 'completed', !toggledTodo.completed);
+    },
+
+    editTodo(todo) {
+      let editedTodo = this.model.findBy('uid', todo.uid);
+
+      Object.keys(todo).map(k => {
+        this.set(editedTodo, k, todo[k]);
+      });
+    },
+
+    deleteTodo(todo) {
+      this.model.removeObject(todo);
+    }
+  },
 
   slideItems: function * (context) {
     let {
@@ -45,32 +81,5 @@ export default Controller.extend({
     });
 
     yield;
-  },
-
-  outstandingItems: computed('model.@each.completed', function() {
-    return this.model.filterBy('completed', false);
-  }),
-
-  completedItems: computed('model.@each.completed', function() {
-    return this.model.filterBy('completed', true);
-  }),
-
-  actions: {
-    addTodo(todo) {
-      console.log(todo.dueDate);
-      console.log(moment(todo.dueDate));
-      let newTodo = Todo.create({
-        title: todo.title,
-        dueDate: moment(todo.dueDate).format()
-      });
-
-      this.model.pushObject(newTodo);
-    },
-
-    toggleCompleted(todo) {
-      let toggledTodo = this.model.findBy('uid', todo.uid);
-
-      set(toggledTodo, 'completed', !toggledTodo.completed);
-    }
   }
 });

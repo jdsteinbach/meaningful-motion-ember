@@ -1,5 +1,32 @@
 <div class="todo-item__wrapper">
   <button class="todo-item__completed" type="button" onclick={{action "updateTodo"}}>Complete Task</button>
-  <p class="todo-item__title">{{todo.title}}</p>
-  <p class="todo-item__due-date">{{moment-format todo.dueDate "MMM D, YYYY"}}</p>
+  {{#if isEditing}}
+    <label for="title" class="screen-reader-only">ToDo Title</label>
+    {{input
+      class="todo-item__field todo-item__title"
+      id="title"
+      type="text"
+      value=todo.title
+    }}
+    <label for="due-date" class="screen-reader-only">Due Date</label>
+    {{input
+      class="todo-item__field todo-item__due-date"
+      id="due-date"
+      type="date"
+      value=todo.dueDate
+    }}
+  {{else}}
+    <p class="todo-item__title">{{todo.title}}</p>
+    <p class="todo-item__due-date">{{moment-format todo.dueDate "MMM D, YYYY"}}</p>
+  {{/if}}
+  <button class="todo-item__action-toggle" {{action "toggleActions"}}>
+    {{svg-jar "more" stroke="currentColor" width="12px" height="24px"}}
+    <span class="screen-reader-only">More Actions</span>
+  </button>
+  <div class="todo-item__actions">
+    <div class="todo-item__actions-wrapper">
+      <button class="todo-item__action todo-item__action--edit" {{action "toggleEditing"}}>Edit</button>
+      <button class="todo-item__action todo-item__action--delete" {{action "deleteTodo"}}>Delete</button>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,222 @@
+.todo-item {
+  list-style: none;
+  position: relative;
+  border-radius: 0.5rem;
+
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+
+  &::before {
+    content: "";
+    display: var(--pulse-display, none);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 2px solid var(--border-color);
+    border-radius: inherit;
+    filter: blur(2px);
+    z-index: 0;
+    animation: pulse infinite 1.5s ease-out;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.02, 1.06);
+    opacity: 0;
+  }
+}
+
+.is-completed {
+  --border-color: #A5D6A7;
+  --check-opacity: 1;
+}
+
+.is-overdue {
+  --border-color: #EF6C00;
+  --completed-color: #FFCC80;
+  --completed-color-hover: #FF9800;
+  --box-shadow: 0 0 1rem -.75rem #E65100;
+  --pulse-display: block;
+}
+
+.is-editing {
+  --field-position: relative;
+  --field-border: #CFD8DC;
+}
+
+.is-actions-open {
+  --title-opacity: .5;
+  --check-opacity: .2;
+  --date-opacity: 0;
+  --actions-position: relative;
+  --actions-transform: none;
+  --actions-opacity: 1;
+}
+
+.todo-item__wrapper {
+  padding: 1rem;
+  display: grid;
+  grid-template:
+    "completed title icons" 1.75rem
+    "completed date icons" 1.5rem /
+    2rem 15rem 1rem;
+  align-items: flex-start;
+  gap: .25rem 1rem;
+  position: relative;
+  border: 1px solid var(--border-color, #CFD8DC);
+  border-radius: inherit;
+  background-color: #fff;
+  box-shadow: var(--box-shadow, none);
+}
+
+.todo-item__field {
+  padding: .25rem;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  appearance: none;
+  position: var(--field-position, static);
+  font-size: inherit;
+  font-family: inherit;
+  border: 1px solid var(--field-border);
+  border-radius: .25rem;
+  box-shadow: none;
+}
+
+.todo-item__title {
+  margin: 0;
+  padding: 0.25rem;
+  max-width: 100%;
+  grid-area: title;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: var(--title-opacity, 1);
+  transition: opacity .2s;
+}
+
+.todo-item__completed {
+  height: 2rem;
+  width: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: completed;
+  order: -1;
+  position: relative;
+  border: 0;
+  border-radius: 1rem;
+  appearance: none;
+  font-size: 0;
+  background-color: var(--completed-color, #81C784);
+  opacity: var(--check-opacity, .4);
+  transition: opacity .2s;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+    background-color: var(--completed-color-hover, #43A047);
+    transform: scale(0);
+    transition: transform .15s;
+  }
+
+  &:hover::before {
+    transform: scale(1);
+  }
+
+  &::after {
+    content: "";
+    margin-bottom: 0.25rem;
+    height: 1rem;
+    width: 0.625rem;
+    display: inline-block;
+    border: 0 solid #fff;
+    border-width: 0 0.25rem 0.25rem 0;
+    transform: rotate(45deg);
+  }
+}
+
+.todo-item__due-date {
+  margin: 0;
+  padding: 0.25rem;
+  grid-area: date;
+  border: 1px solid transparent;
+  font-size: 0.75rem;
+  opacity: var(--date-opacity, 1);
+  transition: opacity .2s;
+}
+
+.todo-item__action-toggle {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: icons;
+  appearance: none;
+  border: 0;
+  color: #BDBDBD;
+  background-color: transparent;
+
+  svg {
+    pointer-events: none;
+  }
+}
+
+.todo-item__actions {
+  grid-area: date;
+  overflow: hidden;
+}
+
+.todo-item__actions-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  column-gap: .5rem;
+  position: var(--actions-position, static);
+  transform: var(--actions-transform, translateX(100%));
+  opacity: var(--actions-opacity, 0);
+  transition: transform .2s ease-in-out, opacity .2s;
+}
+
+.todo-item__action {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  border: 2px solid currentColor;
+  border-radius: .125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--action-color, #616161);
+  background-color: #fff;
+}
+
+.todo-item__action--edit {
+  --action-color: #00897B;
+}
+
+.todo-item__action--delete {
+  --action-color: #F44336;
+}

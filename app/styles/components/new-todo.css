@@ -1,0 +1,135 @@
+.new-todo {
+  padding: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #CFD8DC;
+}
+
+.new-todo__create {
+  height: 3rem;
+  width: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+  grid-column-start: -2;
+  appearance: none;
+  position: relative;
+  z-index: 2;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #EF6C00;
+
+  &:hover {
+    background-color: #E65100;
+  }
+}
+
+.new-todo__form {
+  height: 4rem;
+  max-width: 100%;
+  display: flex;
+  flex: 0 1 auto;
+  align-items: stretch;
+  justify-content: stretch;
+  position: fixed;
+  top: 20vh;
+  left: 50%;
+  z-index: 2;
+  border-radius: .5rem;
+  box-shadow: 0 2px 15px -10px black;
+  opacity: var(--form-opacity, 0);
+  transform: var(--form-transform, translateX(calc(50vw - 4rem)) translateY(calc(.5rem - 20vh)) scale(.5));
+  transform-origin: left center;
+  transition: transform .25s, opacity .1s;
+}
+
+.is-open {
+  --form-opacity: 1;
+  --form-transform: translateX(-50%);
+}
+
+.new-todo__scrim {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, .25);
+  opacity: var(--scrim-opacity, 0);
+  pointer-events: var(--scrim-events, none);
+  transition: opacity .25s;
+}
+
+.is-open {
+  --scrim-opacity: 1;
+  --scrim-events: default;
+}
+
+.new-todo__fields {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color, #CFD8DC);
+  border-right: 0;
+  border-top-left-radius: .5rem;
+  border-bottom-left-radius: .5rem;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.new-todo__label {
+  height: 0;
+  overflow: hidden;
+}
+
+.new-todo__input {
+  padding: 0 1.5rem;
+  height: 2rem;
+  width: auto;
+  max-width: 30rem;
+  display: block;
+  flex: 0 1 auto;
+  appearance: none;
+  position: relative;
+  border: 0;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: background-color .2s;
+
+  &:hover,
+  &:active {
+    background-color: #E1F5FE;
+  }
+
+  &:focus {
+    background-color: #B3E5FC;
+  }
+}
+
+.new-todo__save {
+  padding: 0 1.5rem;
+  flex: 0 0 auto;
+  appearance: none;
+  position: relative;
+  border: 0;
+  border-top-right-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  font-size: 1rem;
+  font-family: system, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  background-color: #303F9F;
+
+  &:hover {
+    background-color: #1A237E;
+  }
+}
