@@ -1,32 +1,52 @@
 <div class="todo-item__wrapper">
-  <button class="todo-item__completed" type="button" onclick={{action "updateTodo"}}>Complete Task</button>
+  <button class="todo-item__completed" type="button" onclick={{action "toggleTodoCompleted"}}>
+    {{svg-jar "check" fill="#fff" height="24" width="24"}}
+    <span class="screen-reader-only">Complete Task</span>
+  </button>
   {{#if isEditing}}
-    <label for="title" class="screen-reader-only">ToDo Title</label>
-    {{input
-      class="todo-item__field todo-item__title"
-      id="title"
-      type="text"
-      value=todo.title
-    }}
-    <label for="due-date" class="screen-reader-only">Due Date</label>
-    {{input
-      class="todo-item__field todo-item__due-date"
-      id="due-date"
-      type="date"
-      value=todo.dueDate
-    }}
+    <label>
+      <span class="screen-reader-only">ToDo Title</span>
+      {{input
+        class="todo-item__field todo-item__title"
+        id=(concat "title-" todo.uid)
+        type="text"
+        value=todo.title
+      }}
+    </label>
+    <label>
+      <span class="screen-reader-only">Due Date</span>
+      {{input
+        class="todo-item__field todo-item__due-date"
+        id=(concat "due-date-" todo.uid)
+        type="date"
+        value=todo.dueDate
+      }}
+    </label>
   {{else}}
     <p class="todo-item__title">{{todo.title}}</p>
     <p class="todo-item__due-date">{{moment-format todo.dueDate "MMM D, YYYY"}}</p>
   {{/if}}
-  <button class="todo-item__action-toggle" {{action "toggleActions"}}>
-    {{svg-jar "more" stroke="currentColor" width="12px" height="24px"}}
-    <span class="screen-reader-only">More Actions</span>
-  </button>
   <div class="todo-item__actions">
-    <div class="todo-item__actions-wrapper">
-      <button class="todo-item__action todo-item__action--edit" {{action "toggleEditing"}}>Edit</button>
-      <button class="todo-item__action todo-item__action--delete" {{action "deleteTodo"}}>Delete</button>
-    </div>
+    {{#if isEditing}}
+      <button class="todo-item__action todo-item__action--save" {{action "editTodo"}}>
+        {{svg-jar "save" stroke="currentColor" width="12" height="12"}}
+        <span class="screen-reader-only">Save</span>
+      </button>
+
+      <button class="todo-item__action todo-item__action--cancel" {{action "disableEditing"}}>
+        {{svg-jar "close" stroke="currentColor" width="12" height="12"}}
+        <span class="screen-reader-only">Cancel</span>
+      </button>
+    {{else}}
+      <button class="todo-item__action todo-item__action--edit" {{action "enableEditing"}}>
+        {{svg-jar "edit" stroke="currentColor" width="12" height="12"}}
+        <span class="screen-reader-only">Edit</span>
+      </button>
+
+      <button class="todo-item__action todo-item__action--delete" {{action "deleteTodo"}}>
+        {{svg-jar "trash" stroke="currentColor" width="12" height="12"}}
+        <span class="screen-reader-only">Delete</span>
+      </button>
+    {{/if}}
   </div>
 </div>

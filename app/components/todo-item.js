@@ -9,14 +9,11 @@ export default Component.extend({
 
   classNameBindings: [
     'todo.completed:is-completed',
-    'isActionsOpen:is-actions-open',
     'isEditing',
     'isOverdue'
   ],
 
   attributeBindings: ['todo.uid:data-uid'],
-
-  isActionsOpen: false,
 
   isEditing: false,
 
@@ -25,32 +22,30 @@ export default Component.extend({
   }),
 
   actions: {
-    updateTodo() {
+    toggleTodoCompleted() {
       this.updateItem(this.todo);
     },
 
-    toggleEditing() {
-      this.setProperties({
-        'isEditing': true,
-        'isActionsOpen': false
-      });
+    enableEditing() {
+      this.set('isEditing', true);
 
-      run(function() {
-        document.getElementById('title').focus();
+      run.scheduleOnce('afterRender', this, function() {
+        document.getElementById(`title-${this.todo.uid}`).focus();
       });
+    },
+
+    disableEditing() {
+      this.set('isEditing', false);
     },
 
     editTodo() {
       this.editItem(this.todo);
+
       this.set('isEditing', false);
     },
 
     deleteTodo() {
       this.deleteItem(this.todo);
-    },
-
-    toggleActions() {
-      this.set('isActionsOpen', !this.isActionsOpen);
     }
   }
 });
