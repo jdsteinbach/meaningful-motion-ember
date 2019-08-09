@@ -2,7 +2,15 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { run } from '@ember/runloop';
 
+import Changeset from 'ember-changeset';
+
 export default Component.extend({
+  init() {
+    this._super(...arguments);
+
+    this.changeset = new Changeset(this.todo);
+  },
+
   tagName: 'li',
 
   classNames: ['todo-item'],
@@ -34,11 +42,15 @@ export default Component.extend({
       });
     },
 
-    disableEditing() {
+    cancelEditing() {
+      this.changeset.rollback();
+
       this.set('isEditing', false);
     },
 
     editTodo() {
+      this.changeset.save();
+
       this.editItem(this.todo);
 
       this.set('isEditing', false);

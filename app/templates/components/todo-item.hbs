@@ -10,7 +10,7 @@
         class="todo-item__field todo-item__title"
         id=(concat "title-" todo.uid)
         type="text"
-        value=todo.title
+        value=changeset.title
       }}
     </label>
     <label>
@@ -19,7 +19,7 @@
         class="todo-item__field todo-item__due-date"
         id=(concat "due-date-" todo.uid)
         type="date"
-        value=todo.dueDate
+        value=changeset.dueDate
       }}
     </label>
   {{else}}

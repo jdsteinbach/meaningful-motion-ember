@@ -10,13 +10,13 @@ import moment from 'moment';
 import Todo from '../models/todo';
 
 export default Controller.extend({
-  outstandingItems: computed('model.@each.completed', function() {
+  outstandingItems: computed('model.@each.{dueDate,completed}', function() {
     return this.model
       .filterBy('completed', false)
       .sortBy('sortableDate');
   }),
 
-  completedItems: computed('model.@each.completed', function() {
+  completedItems: computed('model.@each.{dueDate,completed}', function() {
     return this.model
       .filterBy('completed', true)
       .sortBy('sortableDate');
@@ -31,8 +31,6 @@ export default Controller.extend({
       });
 
       this.model.pushObject(newTodo);
-
-      return this.model.sortBy('sortableDate');
     },
 
     toggleCompleted(todo) {
@@ -48,8 +46,6 @@ export default Controller.extend({
         title: todo.get('title'),
         dueDate: moment(todo.get('dueDate')).utc().format('YYYY-MM-DD')
       });
-
-      return this.model.sortBy('sortableDate');
     },
 
     deleteTodo(todo) {
