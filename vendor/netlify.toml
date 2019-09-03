@@ -2,3 +2,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "http://distracted-euler-2c954c.netlify.com/*"
+  to = "http://embercamp.jds.app/:splat"
+  status = 301
