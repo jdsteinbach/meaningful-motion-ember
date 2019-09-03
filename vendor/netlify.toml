@@ -5,5 +5,5 @@
 
 [[redirects]]
   from = "http://distracted-euler-2c954c.netlify.com/*"
-  to = "http://embercamp.jds.app/:splat"
+  to = "https://embercamp.jds.app/:splat"
   status = 301
