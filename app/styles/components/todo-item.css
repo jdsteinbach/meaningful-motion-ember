@@ -178,6 +178,8 @@
   border: 0;
   color: transparent;
   background-color: var(--action-color, #616161);
+  opacity: 0.5;
+  transition: opacity .15s;
 
   svg {
     color: #fff;
@@ -185,6 +187,11 @@
 
   &:first-child {
     margin-bottom: 0.5rem;
+  }
+
+  &:hover,
+  &:active {
+    opacity: 1;
   }
 }
 
