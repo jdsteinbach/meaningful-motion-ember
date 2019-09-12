@@ -50,7 +50,6 @@
     "ember-welcome-page": "^4.0.0",
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-node": "^9.0.1",
-    "liquid-fire": "^0.30.0",
     "loader.js": "^4.7.0",
     "postcss-nested": "^4.1.2",
     "postcss-partial-import": "^4.1.0",
