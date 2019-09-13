@@ -84,7 +84,7 @@ export default Controller.extend({
 
     removedSprites.forEach(sprite => {
       sprite.endAtSprite(beacons.trash);
-      move(sprite);
+      parallel(move(sprite), scale(sprite));
     });
 
     yield;
