@@ -19,7 +19,7 @@ export default Route.extend({
 
     let groceries = Todo.create({
       title: 'Buy groceries',
-      dueDate: '2019-08-06',
+      dueDate: '2019-09-26',
       completed: false
     });
 
